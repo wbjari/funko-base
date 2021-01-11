@@ -9,9 +9,9 @@ import { FunkoService } from 'src/app/services/funko.service';
 })
 export class AddFunkoComponent implements OnInit {
     funko: Funko = {
-        title: '',
-        description: '',
-        published: false
+        name: '',
+        number: 0,
+        description: ''
     };
     submitted = false;
 
@@ -22,7 +22,8 @@ export class AddFunkoComponent implements OnInit {
 
     saveFunko(): void {
         const data = {
-            title: this.funko.title,
+            name: this.funko.name,
+            number: this.funko.number,
             description: this.funko.description
         };
 
@@ -40,9 +41,9 @@ export class AddFunkoComponent implements OnInit {
     newFunko(): void {
         this.submitted = false;
         this.funko = {
-            title: '',
-            description: '',
-            published: false
+            name: '',
+            number: 0,
+            description: ''
         };
     }
 

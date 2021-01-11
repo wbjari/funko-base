@@ -1,9 +1,9 @@
 <div class="list row">
     <div class="col-md-8">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="title" />
+            <input type="text" class="form-control" placeholder="Search by name" [(ngModel)]="name" />
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" (click)="searchTitle()">
+                <button class="btn btn-outline-secondary" type="button" (click)="searchName()">
                     Search
                 </button>
             </div>
@@ -14,7 +14,7 @@
         <ul class="list-group">
             <li class="list-group-item" *ngFor="let funko of funkos; let i = index"
                 [class.active]="i == currentIndex" (click)="setActiveFunko(funko, i)">
-                {{ funko.title }}
+                {{ funko.name }}
             </li>
         </ul>
 
@@ -26,16 +26,16 @@
         <div *ngIf="currentFunko">
             <h4>Funko</h4>
             <div>
-                <label><strong>Title:</strong></label> {{ currentFunko.title }}
+                <label><strong>Name:</strong></label> {{ currentFunko.name }}
             </div>
             <div>
                 <label><strong>Description:</strong></label>
                 {{ currentFunko.description }}
             </div>
-            <div>
+            <!-- <div>
                 <label><strong>Status:</strong></label>
                 {{ currentFunko.published ? "Published" : "Pending" }}
-            </div>
+            </div> -->
 
             <a class="badge badge-warning" routerLink="/funkos/{{ currentFunko.id }}">
                 Edit

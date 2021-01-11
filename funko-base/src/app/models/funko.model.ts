@@ -1,6 +1,6 @@
 export class Funko {
   public id?: any;
-  public title?: string;
+  public name?: string;
+  public number?: number;
   public description?: string;
-  public published?: boolean;
 }

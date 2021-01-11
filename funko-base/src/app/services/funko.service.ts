@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Funko } from '../models/funko.model';
 
-const baseUrl = 'http://localhost:8080/api/funkos';
+const baseUrl = 'http://localhost:8080/api/funko';
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +21,7 @@ export class FunkoService {
     }
 
     create(data: any): Observable<any> {
+        console.log(data);
         return this.http.post(baseUrl, data);
     }
 
@@ -36,7 +37,7 @@ export class FunkoService {
         return this.http.delete(baseUrl);
     }
 
-    findByTitle(title: any): Observable<Funko[]> {
-        return this.http.get<Funko[]>(`${baseUrl}?title=${title}`);
+    findByName(name: any): Observable<Funko[]> {
+        return this.http.get<Funko[]>(`${baseUrl}?name=${name}`);
     }
 }

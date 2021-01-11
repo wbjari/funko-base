@@ -11,7 +11,7 @@ export class FunkosListComponent implements OnInit {
     funkos?: Funko[];
     currentFunko?: Funko;
     currentIndex = -1;
-    title = '';
+    name = '';
 
     constructor(private funkoService: FunkoService) { }
 
@@ -54,8 +54,8 @@ export class FunkosListComponent implements OnInit {
                 });
     }
 
-    searchTitle(): void {
-        this.funkoService.findByTitle(this.title)
+    searchName(): void {
+        this.funkoService.findByName(this.name)
             .subscribe(
                 data => {
                     this.funkos = data;

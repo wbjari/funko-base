@@ -2,14 +2,18 @@
     <div class="submit-form">
         <div *ngIf="!submitted">
             <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" required [(ngModel)]="funko.title" name="title" />
+                <label for="name">Funko name</label>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="funko.name" name="name" />
+            </div>
+
+            <div class="form-group">
+                <label for="number">Number</label>
+                <input type="number" class="form-control" id="number" required [(ngModel)]="funko.number" name="number" />
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <input class="form-control" id="description" required [(ngModel)]="funko.description"
-                    name="description" />
+                <input class="form-control" id="description" [(ngModel)]="funko.description" name="description" />
             </div>
 
             <button (click)="saveFunko()" class="btn btn-success">Submit</button>

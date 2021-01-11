@@ -12,9 +12,9 @@ import { Funko } from 'src/app/models/funko.model';
 })
 export class FunkoDetailsComponent implements OnInit {
     currentFunko: Funko = {
-        title: '',
-        description: '',
-        published: false
+        name: '',
+        number: 0,
+        description: ''
     };
     message = '';
 
@@ -42,7 +42,7 @@ export class FunkoDetailsComponent implements OnInit {
 
     updatePublished(status: boolean): void {
         const data = {
-            title: this.currentFunko.title,
+            name: this.currentFunko.name,
             description: this.currentFunko.description,
             published: status
         };
@@ -50,7 +50,7 @@ export class FunkoDetailsComponent implements OnInit {
         this.funkoService.update(this.currentFunko.id, data)
             .subscribe(
                 response => {
-                    this.currentFunko.published = status;
+                    /*this.currentFunko.published = status;*/
                     console.log(response);
                     this.message = response.message;
                 },
