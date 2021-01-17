@@ -1,43 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment'
 import { Funko } from '../models/funko.model';
-
-const baseUrl = 'http://localhost:8080/api/funko';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FunkoService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private auth: AuthService) { }
 
     getAll(): Observable<Funko[]> {
-        return this.http.get<Funko[]>(baseUrl);
+        return this.http.get<Funko[]>(environment.apiUrl+'/funko');
     }
 
     get(id: any): Observable<Funko> {
-        return this.http.get(`${baseUrl}/${id}`);
+        return this.http.get(`${environment.apiUrl+'/funko'}/${id}`);
     }
 
     create(data: any): Observable<any> {
-        console.log(data);
-        return this.http.post(baseUrl, data);
+        console.log(this.auth.jwt());
+        return this.http.post(environment.apiUrl + '/funko', data, this.auth.jwt());
     }
 
     update(id: any, data: any): Observable<any> {
-        return this.http.put(`${baseUrl}/${id}`, data);
+        return this.http.put(`${environment.apiUrl+'/funko'}/${id}`, data);
     }
 
     delete(id: any): Observable<any> {
-        return this.http.delete(`${baseUrl}/${id}`);
+        return this.http.delete(`${environment.apiUrl+'/funko'}/${id}`);
     }
 
     deleteAll(): Observable<any> {
-        return this.http.delete(baseUrl);
+        return this.http.delete(environment.apiUrl+'/funko');
     }
 
     findByName(name: any): Observable<Funko[]> {
-        return this.http.get<Funko[]>(`${baseUrl}?name=${name}`);
+        return this.http.get<Funko[]>(`${environment.apiUrl+'/funko'}?name=${name}`);
     }
 }

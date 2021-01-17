@@ -1,0 +1,19 @@
+<div>
+    <div class="submit-form">
+        <div *ngIf="!submitted">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" required [(ngModel)]="user.username" name="username" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password" />
+            </div>
+            <button (click)="signIn()" class="btn btn-success">Sign in</button>
+        </div>
+
+        <div *ngIf="submitted">
+            <h4>Sign in succesful!!</h4>
+        </div>
+    </div>
+</div>
