@@ -21,20 +21,15 @@ export class FunkoService {
     }
 
     create(data: any): Observable<any> {
-        console.log(this.auth.jwt());
         return this.http.post(environment.apiUrl + '/funko', data, this.auth.jwt());
     }
 
     update(id: any, data: any): Observable<any> {
-        return this.http.put(`${environment.apiUrl+'/funko'}/${id}`, data);
+        return this.http.put(`${environment.apiUrl + '/funko'}/${id}`, data, this.auth.jwt());
     }
 
     delete(id: any): Observable<any> {
-        return this.http.delete(`${environment.apiUrl+'/funko'}/${id}`);
-    }
-
-    deleteAll(): Observable<any> {
-        return this.http.delete(environment.apiUrl+'/funko');
+        return this.http.delete(`${environment.apiUrl + '/funko'}/${id}`, this.auth.jwt());
     }
 
     findByName(name: any): Observable<Funko[]> {

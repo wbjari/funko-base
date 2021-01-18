@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 
 import { FunkoService } from 'src/app/services/funko.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Funko } from 'src/app/models/funko.model';
 
 @Component({
@@ -20,6 +21,7 @@ export class FunkoDetailsComponent implements OnInit {
 
     constructor(
         private funkoService: FunkoService,
+        private authService: AuthService,
         private route: ActivatedRoute,
         private router: Router) { }
 
@@ -33,26 +35,9 @@ export class FunkoDetailsComponent implements OnInit {
             .subscribe(
                 data => {
                     this.currentFunko = data;
-                    console.log(data);
-                },
-                error => {
-                    console.log(error);
-                });
-    }
-
-    updatePublished(status: boolean): void {
-        const data = {
-            name: this.currentFunko.name,
-            description: this.currentFunko.description,
-            published: status
-        };
-
-        this.funkoService.update(this.currentFunko.id, data)
-            .subscribe(
-                response => {
-                    /*this.currentFunko.published = status;*/
-                    console.log(response);
-                    this.message = response.message;
+                    if (this.currentFunko.userId != this.authService.getUserId()) {
+                        this.router.navigate(['/']);
+                    }
                 },
                 error => {
                     console.log(error);
@@ -63,8 +48,8 @@ export class FunkoDetailsComponent implements OnInit {
         this.funkoService.update(this.currentFunko.id, this.currentFunko)
             .subscribe(
                 response => {
-                    console.log(response);
                     this.message = response.message;
+                    this.router.navigate(['/']);
                 },
                 error => {
                     console.log(error);
@@ -75,8 +60,7 @@ export class FunkoDetailsComponent implements OnInit {
         this.funkoService.delete(this.currentFunko.id)
             .subscribe(
                 response => {
-                    console.log(response);
-                    this.router.navigate(['/funkos']);
+                    this.router.navigate(['/']);
                 },
                 error => {
                     console.log(error);

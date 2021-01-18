@@ -3,4 +3,6 @@ export class Funko {
   public name?: string;
   public number?: number;
   public description?: string;
+  public userId?: any;
+  public serieId?: any;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Funko } from 'src/app/models/funko.model';
 import { FunkoService } from 'src/app/services/funko.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-funkos-list',
@@ -12,8 +13,9 @@ export class FunkosListComponent implements OnInit {
     currentFunko?: Funko;
     currentIndex = -1;
     name = '';
+    canEdit = false;
 
-    constructor(private funkoService: FunkoService) { }
+    constructor(private funkoService: FunkoService, private authService: AuthService) { }
 
     ngOnInit(): void {
         this.retrieveFunkos();
@@ -24,7 +26,6 @@ export class FunkosListComponent implements OnInit {
             .subscribe(
                 data => {
                     this.funkos = data;
-                    console.log(data);
                 },
                 error => {
                     console.log(error);
@@ -40,18 +41,12 @@ export class FunkosListComponent implements OnInit {
     setActiveFunko(funko: Funko, index: number): void {
         this.currentFunko = funko;
         this.currentIndex = index;
-    }
 
-    removeAllFunkos(): void {
-        this.funkoService.deleteAll()
-            .subscribe(
-                response => {
-                    console.log(response);
-                    this.refreshList();
-                },
-                error => {
-                    console.log(error);
-                });
+        if(this.currentFunko.userId == this.authService.getUserId()) {
+            this.canEdit = true;
+        } else {
+            this.canEdit = false;
+        }
     }
 
     searchName(): void {
@@ -59,7 +54,6 @@ export class FunkosListComponent implements OnInit {
             .subscribe(
                 data => {
                     this.funkos = data;
-                    console.log(data);
                 },
                 error => {
                     console.log(error);

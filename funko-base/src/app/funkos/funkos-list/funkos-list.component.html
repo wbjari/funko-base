@@ -17,16 +17,15 @@
                 {{ funko.name }}
             </li>
         </ul>
-
-        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllFunkos()">
-            Remove All
-        </button>
     </div>
     <div class="col-md-6">
         <div *ngIf="currentFunko">
             <h4>Funko</h4>
             <div>
                 <label><strong>Name:</strong></label> {{ currentFunko.name }}
+            </div>
+            <div>
+                <label><strong>Number:</strong></label> {{ currentFunko.number }}
             </div>
             <div>
                 <label><strong>Description:</strong></label>
@@ -37,7 +36,7 @@
                 {{ currentFunko.published ? "Published" : "Pending" }}
             </div> -->
 
-            <a class="badge badge-warning" routerLink="/funkos/{{ currentFunko.id }}">
+            <a *ngIf="canEdit" class="badge badge-warning" routerLink="/funkos/{{ currentFunko.id }}">
                 Edit
             </a>
         </div>

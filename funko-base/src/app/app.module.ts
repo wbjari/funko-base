@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { FunkosModule } from './funkos/funkos.module';
 import { AuthModule } from './auth/auth.module';
 
+import { AuthService } from './services/auth.service';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -25,7 +27,9 @@ import { AuthModule } from './auth/auth.module';
     FunkosModule,
     AuthModule
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

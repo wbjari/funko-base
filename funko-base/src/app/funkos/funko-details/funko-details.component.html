@@ -7,24 +7,15 @@
                 <input type="text" class="form-control" id="name" [(ngModel)]="currentFunko.name" name="name" />
             </div>
             <div class="form-group">
+                <label for="number">Number</label>
+                <input type="number" class="form-control" id="number" required [(ngModel)]="currentFunko.number" name="number" />
+            </div>
+            <div class="form-group">
                 <label for="description">Description</label>
                 <input type="text" class="form-control" id="description" [(ngModel)]="currentFunko.description"
                     name="description" />
             </div>
-
-            <!-- <div class="form-group">
-                <label><strong>Status:</strong></label>
-                {{ currentFunko.published ? "Published" : "Pending" }}
-            </div> -->
         </form>
-
-        <!-- <button class="badge badge-primary mr-2" *ngIf="currentFunko.published" (click)="updatePublished(false)">
-            UnPublish
-        </button>
-        <button *ngIf="!currentFunko.published" class="badge badge-primary mr-2" (click)="updatePublished(true)">
-            Publish
-        </button> -->
-
         <button class="badge badge-danger mr-2" (click)="deleteFunko()">
             Delete
         </button>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment'
 import { User } from '../models/user.model';
@@ -26,11 +26,11 @@ export class AuthService {
                 if(this.responseToken) {
                     this.setToken(this.responseToken);
 
-                    // Return true to indicate successful login.
+                    // Return true to indicate successful sign in.
                     this.statChanged.next(this.responseToken);
                     return true;
                 } else {
-                    // Return false to indicate failed login.
+                    // Return false to indicate failed sign in.
                     return false;
                 }
 
@@ -47,15 +47,15 @@ export class AuthService {
 
     }
 
-    public getUserId(): string {
+    public getUserId(): any {
         if (this.getToken()) {
             const decoded:any = jwt_decode(this.getToken());
-            if (decoded.userId === undefined) {
-                return 'No userId.';
+            if (decoded.id === undefined) {
+                return false;
             }
-            return decoded.userId;
+            return decoded.id;
         }
-        return 'No token.';
+        return false;
     }
 
     public jwt() {
@@ -66,7 +66,6 @@ export class AuthService {
                 Authorization: 'Bearer ' + token.access_token
             })
         };
-        console.log(httpOptions.headers.getAll('Authorization'))
         return httpOptions;
     }
 
@@ -90,10 +89,9 @@ export class AuthService {
         return date;
     }
 
-    public logout(): void {
+    public signOut(): void {
         localStorage.removeItem('jwt_token');
         this.statChanged.next('');
         this.responseToken = '';
-
     }
 }

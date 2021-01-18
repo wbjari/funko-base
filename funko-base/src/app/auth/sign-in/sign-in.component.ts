@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, Params } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -14,7 +15,7 @@ export class SignInComponent implements OnInit {
     };
     submitted = false;
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit(): void {
     }
@@ -28,8 +29,8 @@ export class SignInComponent implements OnInit {
         this.authService.signIn(data)
             .subscribe(
                 response => {
-                    console.log(response);
                     this.submitted = true;
+                    this.router.navigate(['/']);
                 },
                 error => {
                     console.log(error);
