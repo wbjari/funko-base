@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { User } from './models/user.model';
-import { Router, Params } from '@angular/router';
+import { Router, Params, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +28,8 @@ export class AppComponent implements OnInit {
     if(this.auth.isAuthenticated()) {
       this.auth.signOut();
       this.loggedIn = false;
-      this.router.navigate(['/']);
+      const navigationExtras: NavigationExtras = { state: { successMessage: "You are now signed out." } };
+      this.router.navigate(['/'], navigationExtras);
     }
   }
 }

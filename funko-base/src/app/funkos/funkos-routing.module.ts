@@ -11,7 +11,7 @@ const funkosRoutes: Routes = [
         path: '', component: FunkosComponent, children: [
             { path: '', component: FunkosListComponent },
             { path: 'funkos/:id', component: FunkoDetailsComponent },
-            { path: 'add', component: AddFunkoComponent }
+            { path: 'add-funko', component: AddFunkoComponent }
         ]
     },
 ];

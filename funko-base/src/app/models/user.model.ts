@@ -1,5 +1,5 @@
 export class User {
-  public id?: any;
+  public id?: string;
   public username?: string;
   public password?: string;
 }

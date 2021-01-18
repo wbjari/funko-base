@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 
 import { FunkoService } from 'src/app/services/funko.service';
@@ -36,11 +36,14 @@ export class FunkoDetailsComponent implements OnInit {
                 data => {
                     this.currentFunko = data;
                     if (this.currentFunko.userId != this.authService.getUserId()) {
-                        this.router.navigate(['/']);
+                        const navigationExtras: NavigationExtras = { state: { errorMessage: "This funko isn't yours!" } };
+                        this.router.navigate(['/'], navigationExtras);
                     }
                 },
                 error => {
                     console.log(error);
+                    const navigationExtras: NavigationExtras = { state: { errorMessage: "This funko doesn't exist or has been deleted." } };
+                    this.router.navigate(['/'], navigationExtras);
                 });
     }
 

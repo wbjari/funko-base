@@ -38,7 +38,7 @@ export class AuthService {
     }
 
     public isAuthenticated(): boolean {
-        if (this.getToken()) {
+        if (this.getToken() != '{}' || undefined) {
             const expiresAt = this.getTokenExpirationDate(this.getToken());
             return new Date().getTime() < expiresAt.getTime();
         } else {

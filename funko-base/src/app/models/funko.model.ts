@@ -1,8 +1,8 @@
 export class Funko {
-  public id?: any;
+  public id?: string;
   public name?: string;
   public number?: number;
   public description?: string;
-  public userId?: any;
-  public serieId?: any;
+  public userId?: string;
+  public serieId?: string;
 }

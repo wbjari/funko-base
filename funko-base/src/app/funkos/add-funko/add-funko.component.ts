@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Funko } from 'src/app/models/funko.model';
 import { FunkoService } from 'src/app/services/funko.service';
 
@@ -15,9 +16,15 @@ export class AddFunkoComponent implements OnInit {
     };
     submitted = false;
 
-    constructor(private funkoService: FunkoService) { }
+    //Init form
+    public name: any;
+    public number: any;
+    public description: any;
+
+    constructor(private funkoService: FunkoService, private fb: FormBuilder) { }
 
     ngOnInit(): void {
+        
     }
 
     saveFunko(): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, Params } from '@angular/router';
+import { Router, Params, NavigationExtras } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -18,6 +18,10 @@ export class SignInComponent implements OnInit {
     constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit(): void {
+        if(this.authService.isAuthenticated()) {
+            const navigationExtras: NavigationExtras = { state: { errorMessage: "You are already signed in." } };
+            this.router.navigate(['/'], navigationExtras);
+        } else { }
     }
 
     signIn(): void {
@@ -30,7 +34,8 @@ export class SignInComponent implements OnInit {
             .subscribe(
                 response => {
                     this.submitted = true;
-                    this.router.navigate(['/']);
+                    const navigationExtras: NavigationExtras = { state: { successMessage: "Successfully signed in!" } };
+                    this.router.navigate(['/'], navigationExtras);
                 },
                 error => {
                     console.log(error);

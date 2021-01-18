@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+
 import { Funko } from 'src/app/models/funko.model';
 import { FunkoService } from 'src/app/services/funko.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,8 +16,18 @@ export class FunkosListComponent implements OnInit {
     currentIndex = -1;
     name = '';
     canEdit = false;
+    errorMessage:string | undefined;
+    successMessage:string | undefined;
 
-    constructor(private funkoService: FunkoService, private authService: AuthService) { }
+    constructor(private funkoService: FunkoService, private authService: AuthService, private router: Router) { 
+        const currentNav = this.router.getCurrentNavigation();
+        if(currentNav) {
+            const errorState = currentNav.extras.state as { errorMessage: string };
+            const successState = currentNav.extras.state as { successMessage: string };
+            if(errorState) {this.errorMessage = errorState.errorMessage;}
+            if(successState) {this.successMessage = successState.successMessage;}
+        }
+     }
 
     ngOnInit(): void {
         this.retrieveFunkos();
