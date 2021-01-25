@@ -18,12 +18,10 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     signUp(data: any) {
-        console.log(data);
         return this.http.post(environment.apiUrl + '/auth/signup', data);
     }
 
     signIn(data: any): Observable<boolean> {
-        console.log(data);
         return this.http.post(environment.apiUrl+'/auth/signin', data)
             .pipe(map((res: any) => {
                 

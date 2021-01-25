@@ -1,0 +1,23 @@
+<h1>Series.</h1>
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+</div>
+<div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+</div>
+<div *ngIf="loggedIn" class="list row">
+    <div class="col-md-3">
+        <a routerLink="/series/add-serie" class="btn btn-dark">Add Serie</a>
+    </div>
+</div>
+<div class="list row">
+    <div class="col-md-6">
+        <h4>Series List</h4>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let serie of series;">
+                {{ serie.name }}
+                <a routerLink="/series/{{ serie.id }}" class="update-button btn btn-warning">Edit</a>
+            </li>
+        </ul>
+    </div>
+</div>

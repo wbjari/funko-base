@@ -14,7 +14,6 @@ export class AddSerieComponent implements OnInit {
     serie: Serie = {
         name: ''
     };
-    submitted = false;
 
     //Init form
     public name: any;
@@ -36,8 +35,8 @@ export class AddSerieComponent implements OnInit {
         this.serieService.create(data)
             .subscribe(
                 response => {
-                    console.log(response);
-                    this.submitted = true;
+                    const navigationExtras: NavigationExtras = { state: { successMessage: "Serie successfuly created." } };
+                    this.router.navigate(['/series'], navigationExtras);
                 },
                 error => {
                     console.log(error);
@@ -45,7 +44,6 @@ export class AddSerieComponent implements OnInit {
     }
 
     newSerie(): void {
-        this.submitted = false;
         this.serie = {
             name: ''
         };

@@ -28,9 +28,9 @@ export class SerieService {
         return this.http.post(environment.apiUrl + '/serie', data, this.auth.jwt());
     }
 
-    // update(id: any, data: any): Observable<any> {
-    //     return this.http.put(`${environment.apiUrl + '/serie'}/${id}`, data, this.auth.jwt());
-    // }
+    update(id: any, data: any): Observable<any> {
+        return this.http.put(`${environment.apiUrl + '/serie'}/${id}`, data, this.auth.jwt());
+    }
 
     delete(id: any): Observable<any> {
         return this.http.delete(`${environment.apiUrl + '/serie'}/${id}`, this.auth.jwt());

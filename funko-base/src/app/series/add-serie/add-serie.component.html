@@ -1,19 +1,13 @@
+<h1>Add serie.</h1>
 <div>
     <div class="form">
-        <div *ngIf="!submitted">
-            <div class="form-group">
-                <label for="name">Serie name</label>
-                <input type="text" class="form-control" id="name" 
-                required 
-                [(ngModel)]="serie.name" name="name"/>
-            </div>
-
-            <button (click)="saveSerie()" class="btn btn-success">Submit</button>
+        <div class="form-group">
+            <label for="name">Serie name</label>
+            <input type="text" class="form-control" id="name" 
+            required 
+            [(ngModel)]="serie.name" name="name"/>
         </div>
 
-        <div *ngIf="submitted">
-            <h4>Serie was submitted successfully!</h4>
-            <button class="btn btn-success" (click)="newSerie()">Add</button>
-        </div>
+        <button (click)="saveSerie()" class="btn btn-success">Submit</button>
     </div>
 </div>

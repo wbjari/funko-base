@@ -7,11 +7,15 @@ import { SeriesRoutingModule } from './series-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { SerieService } from '../services/serie.service';
 import { AddSerieComponent } from './add-serie/add-serie.component';
+import { SeriesListComponent } from './series-list/series-list.component';
+import { SerieDetailsComponent } from './serie-details/serie-details.component';
 
 @NgModule({
     declarations: [
         SeriesComponent,
-        AddSerieComponent
+        AddSerieComponent,
+        SeriesListComponent,
+        SerieDetailsComponent
     ],
     imports: [
         CommonModule,
