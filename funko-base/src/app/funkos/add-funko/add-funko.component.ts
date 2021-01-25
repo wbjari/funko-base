@@ -40,7 +40,6 @@ export class AddFunkoComponent implements OnInit {
         this.serieService.getAllByUser().subscribe(
             data => {
                 this.series = data;
-                console.log(data);
             },
             error => {
                 console.log(error);
@@ -58,7 +57,6 @@ export class AddFunkoComponent implements OnInit {
         this.funkoService.create(data)
             .subscribe(
                 response => {
-                    console.log(response);
                     if (this.authService.isAuthenticated()) {
                         const navigationExtras: NavigationExtras = { state: { successMessage: "Funko successfully created!" } };
                         this.router.navigate(['/'], navigationExtras);

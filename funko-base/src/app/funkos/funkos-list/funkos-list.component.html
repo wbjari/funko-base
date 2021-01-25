@@ -1,3 +1,4 @@
+<h1>Funkos.</h1>
 <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
     {{ errorMessage }}
 </div>
@@ -51,17 +52,24 @@
                 <label><strong>Description:</strong></label>
                 {{ currentFunko.description }}
             </div>
-            <!-- <div>
-                <label><strong>Status:</strong></label>
-                {{ currentFunko.published ? "Published" : "Pending" }}
-            </div> -->
+            <div *ngIf="likedBy">
+                <label><strong>&#10084; {{ likedBy }}</strong></label> 
+            </div>
 
             <a *ngIf="canEdit" class="btn btn-warning" routerLink="/funkos/{{ currentFunko.id }}">
                 Edit
             </a>
-            <button type="button" class="btn btn-success" (click)="likeFunko">
-                Like
-            </button>
+            <span *ngIf="loggedIn">
+                <button *ngIf="canLike; else canUnlike" type="button" class="btn btn-success" (click)="likeFunko()">
+                    Like
+                </button>
+                <ng-template #canUnlike>
+                    <button type="button" class="btn btn-danger" (click)="unlikeFunko()">
+                        Unlike
+                    </button>
+                </ng-template>
+            </span>
+
         </div>
 
         <div *ngIf="!currentFunko">
