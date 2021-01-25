@@ -4,12 +4,12 @@
 <div *ngIf="successMessage" class="alert alert-success" role="alert">
     {{ successMessage }}
 </div>
-<div class="list row">
+<div *ngIf="loggedIn" class="list row">
     <div class="col-md-3">
         <a routerLink="/add-funko" class="btn btn-dark">Add Funko</a>
     </div>
     <div class="col-md-3">
-        <a routerLink="/add-serie" class="btn btn-dark">Add Serie</a>
+        <a routerLink="/series/add-serie" class="btn btn-dark">Add Serie</a>
     </div>
 </div>
 <div class="list row">
@@ -42,6 +42,12 @@
                 <label><strong>Number:</strong></label> {{ currentFunko.number }}
             </div>
             <div>
+                <label><strong>Serie:</strong></label> {{ currentFunko.Serie?.name }}
+            </div>
+            <div>
+                <label><strong>Owner:</strong></label> {{ currentFunko.User?.username }}
+            </div>
+            <div *ngIf="currentFunko.description">
                 <label><strong>Description:</strong></label>
                 {{ currentFunko.description }}
             </div>
@@ -50,9 +56,12 @@
                 {{ currentFunko.published ? "Published" : "Pending" }}
             </div> -->
 
-            <a *ngIf="canEdit" class="badge badge-warning" routerLink="/funkos/{{ currentFunko.id }}">
+            <a *ngIf="canEdit" class="btn btn-warning" routerLink="/funkos/{{ currentFunko.id }}">
                 Edit
             </a>
+            <button type="button" class="btn btn-success" (click)="likeFunko">
+                Like
+            </button>
         </div>
 
         <div *ngIf="!currentFunko">

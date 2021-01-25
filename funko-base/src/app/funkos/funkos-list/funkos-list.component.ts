@@ -12,12 +12,13 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class FunkosListComponent implements OnInit {
     funkos?: Funko[];
-    currentFunko?: Funko;
-    currentIndex = -1;
-    name = '';
-    canEdit = false;
-    errorMessage:string | undefined;
-    successMessage:string | undefined;
+    currentFunko?: any;
+    currentIndex: number = -1;
+    name: string = '';
+    canEdit: boolean = false;
+    errorMessage: string | undefined;
+    successMessage: string | undefined;
+    loggedIn: boolean | undefined;
 
     constructor(private funkoService: FunkoService, private authService: AuthService, private router: Router) { 
         const currentNav = this.router.getCurrentNavigation();
@@ -30,6 +31,11 @@ export class FunkosListComponent implements OnInit {
      }
 
     ngOnInit(): void {
+        if (this.authService.isAuthenticated()) {
+            this.loggedIn = true;
+        } else {
+            this.loggedIn = false;
+        }
         this.retrieveFunkos();
     }
 
@@ -70,6 +76,10 @@ export class FunkosListComponent implements OnInit {
                 error => {
                     console.log(error);
                 });
+    }
+
+    likeFunko(): void {
+        // this.likeService.likeFunko()
     }
 
 }

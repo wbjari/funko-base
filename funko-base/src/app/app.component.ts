@@ -14,22 +14,15 @@ export class AppComponent implements OnInit {
   user: User | undefined;
   loggedIn: boolean = false;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
 
-    if(this.auth.isAuthenticated()) {
+    if (this.authService.isAuthenticated()) {
       this.loggedIn = true; 
-    }
-
-  }
-
-  signOut() {
-    if(this.auth.isAuthenticated()) {
-      this.auth.signOut();
+    } else {
       this.loggedIn = false;
-      const navigationExtras: NavigationExtras = { state: { successMessage: "You are now signed out." } };
-      this.router.navigate(['/'], navigationExtras);
     }
+
   }
 }

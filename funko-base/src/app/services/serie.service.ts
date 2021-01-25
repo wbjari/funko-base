@@ -16,6 +16,10 @@ export class SerieService {
         return this.http.get<Serie[]>(environment.apiUrl+'/serie');
     }
 
+    getAllByUser(): Observable<Serie[]> {
+        return this.http.get<Serie[]>(environment.apiUrl + '/serie/byUser', this.auth.jwt());
+    }
+
     get(id: any): Observable<Serie> {
         return this.http.get(`${environment.apiUrl+'/serie'}/${id}`);
     }

@@ -1,32 +1,34 @@
 <div>
     <div class="form">
-        <div *ngIf="!submitted">
-            <div class="form-group">
-                <label for="name">Funko name</label>
-                <input type="text" class="form-control" id="name" 
-                required 
-                [(ngModel)]="funko.name" name="name"/>
-            </div>
-
-            <div class="form-group">
-                <label for="number">Number</label>
-                <input type="number" class="form-control" id="number" 
-                required 
-                [(ngModel)]="funko.number" name="number" />
-            </div>
-
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input class="form-control" id="description" 
-                [(ngModel)]="funko.description" name="description" />
-            </div>
-
-            <button (click)="saveFunko()" class="btn btn-success">Submit</button>
+        <div class="form-group">
+            <label for="name">Funko name *</label>
+            <input type="text" class="form-control" id="name" 
+            required 
+            [(ngModel)]="funko.name" name="name"/>
         </div>
 
-        <div *ngIf="submitted">
-            <h4>Funko was submitted successfully!</h4>
-            <button class="btn btn-success" (click)="newFunko()">Add</button>
+        <div class="form-group">
+            <label for="number">Number *</label>
+            <input type="number" class="form-control" id="number" 
+            required 
+            [(ngModel)]="funko.number" name="number" />
         </div>
+
+        <div class="form-group">
+            <label for="serie">Serie *</label>
+            <select class="series" 
+            required
+            [(ngModel)]="serie" name="status" >
+                <option *ngFor="let serie of series;" [ngValue]="serie">{{ serie.name }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" 
+            [(ngModel)]="funko.description" name="description"></textarea>
+        </div>
+
+        <button (click)="saveFunko()" class="btn btn-success">Submit</button>
     </div>
 </div>

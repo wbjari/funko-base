@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { FunkosModule } from './funkos/funkos.module';
+import { SeriesModule } from './series/series.module';
 import { AuthModule } from './auth/auth.module';
 
 import { AuthService } from './services/auth.service';
@@ -25,7 +26,8 @@ import { AuthService } from './services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     FunkosModule,
-    AuthModule
+    AuthModule,
+    SeriesModule
   ],
   providers: [
     AuthService

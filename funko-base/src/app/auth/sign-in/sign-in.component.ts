@@ -13,7 +13,6 @@ export class SignInComponent implements OnInit {
         username: '',
         password: ''
     };
-    submitted = false;
 
     constructor(private authService: AuthService, private router: Router) { }
 
@@ -21,7 +20,7 @@ export class SignInComponent implements OnInit {
         if(this.authService.isAuthenticated()) {
             const navigationExtras: NavigationExtras = { state: { errorMessage: "You are already signed in." } };
             this.router.navigate(['/'], navigationExtras);
-        } else { }
+        }
     }
 
     signIn(): void {
@@ -33,7 +32,6 @@ export class SignInComponent implements OnInit {
         this.authService.signIn(data)
             .subscribe(
                 response => {
-                    this.submitted = true;
                     const navigationExtras: NavigationExtras = { state: { successMessage: "Successfully signed in!" } };
                     this.router.navigate(['/'], navigationExtras);
                 },
