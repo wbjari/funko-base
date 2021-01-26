@@ -2,17 +2,24 @@
 <div>
     <div *ngIf="currentSerie.id" class="edit-form">
         <h4>Serie</h4>
-        <form>
+        <form [formGroup]="updateSerieForm" novalidate>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" [(ngModel)]="currentSerie.name" name="name" />
+                <input type="text" class="form-control" id="name" name="name" formControlName="name"
+                [ngClass]="{
+                    'has-success': updateSerieForm.controls.name.valid && (updateSerieForm.controls.name.dirty || updateSerieForm.controls.name.touched),
+                    'has-danger': updateSerieForm.controls.name.invalid && (updateSerieForm.controls.name.dirty || updateSerieForm.controls.name.touched)
+                }"/>
+                <div class="form-control-feedback">
+                    <p *ngIf="updateSerieForm.controls.name.invalid && (updateSerieForm.controls.name.dirty || updateSerieForm.controls.name.touched)">Name is required and needs at least 4 characters.</p>
+                </div>
             </div>
         </form>
         <button class="btn btn-danger mr-2" (click)="deleteSerie()">
             Delete
         </button>
 
-        <button type="submit" class="btn btn-success mr-2" (click)="updateSerie()">
+        <button type="submit" class="btn btn-success mr-2" [disabled]="!updateSerieForm.valid" (click)="updateSerie()">
             Update
         </button>
         <p>{{ message }}</p>

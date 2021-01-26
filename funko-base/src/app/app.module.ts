@@ -13,6 +13,7 @@ import { SeriesModule } from './series/series.module';
 import { AuthModule } from './auth/auth.module';
 
 import { AuthService } from './services/auth.service';
+import { SharedService } from './shared/shared.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthService } from './services/auth.service';
     SeriesModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    SharedService
   ],
   bootstrap: [AppComponent]
 })

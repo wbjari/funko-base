@@ -32,7 +32,7 @@ export class FunkoService {
         return this.http.delete(`${environment.apiUrl + '/funko'}/${id}`, this.auth.jwt());
     }
 
-    findByName(name: any): Observable<Funko[]> {
-        return this.http.get<Funko[]>(`${environment.apiUrl+'/funko'}?name=${name}`);
-    }
+    // findByName(name: any): Observable<Funko[]> {
+    //     return this.http.get<Funko[]>(`${environment.apiUrl+'/funko'}?name=${name}`);
+    // }
 }

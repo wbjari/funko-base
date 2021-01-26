@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
 
 import { SerieService } from 'src/app/services/serie.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,7 +17,11 @@ export class SerieDetailsComponent implements OnInit {
     };
     message = '';
 
+    //Init form
+    updateSerieForm!: FormGroup;
+
     constructor(
+        private formBuilder: FormBuilder, 
         private serieService: SerieService,
         private authService: AuthService,
         private route: ActivatedRoute,
@@ -26,6 +30,10 @@ export class SerieDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.message = '';
         this.getSerie(this.route.snapshot.params.id);
+
+        this.updateSerieForm = this.formBuilder.group({
+            name: [null, [Validators.required, Validators.minLength(4)]]
+        });
     }
 
     getSerie(id: string): void {
@@ -33,6 +41,7 @@ export class SerieDetailsComponent implements OnInit {
             .subscribe(
                 data => {
                     this.currentSerie = data;
+                    this.updateSerieForm.controls['name'].setValue(this.currentSerie.name);
                     if (this.currentSerie.userId != this.authService.getUserId()) {
                         const navigationExtras: NavigationExtras = { state: { errorMessage: "This serie isn't yours!" } };
                         this.router.navigate(['/series'], navigationExtras);
@@ -46,6 +55,7 @@ export class SerieDetailsComponent implements OnInit {
     }
 
     updateSerie(): void {
+        this.currentSerie.name = this.updateSerieForm.get('name')!.value;
         this.serieService.update(this.currentSerie.id, this.currentSerie)
             .subscribe(
                 response => {

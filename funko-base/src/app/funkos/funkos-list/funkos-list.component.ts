@@ -119,16 +119,16 @@ export class FunkosListComponent implements OnInit {
         }
     }
 
-    searchName(): void {
-        this.funkoService.findByName(this.name)
-            .subscribe(
-                data => {
-                    this.funkos = data;
-                },
-                error => {
-                    console.log(error);
-                });
-    }
+    // searchName(): void {
+    //     this.funkoService.findByName(this.name)
+    //         .subscribe(
+    //             data => {
+    //                 this.funkos = data;
+    //             },
+    //             error => {
+    //                 console.log(error);
+    //             });
+    // }
 
     likeFunko(): void {
         const data = {

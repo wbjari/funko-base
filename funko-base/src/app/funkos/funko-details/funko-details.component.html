@@ -2,32 +2,51 @@
 <div>
     <div *ngIf="currentFunko.id" class="edit-form">
         <h4>Funko</h4>
-        <form>
+        <form [formGroup]="updateFunkoForm" novalidate>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" [(ngModel)]="currentFunko.name" name="name" />
+                <input type="text" class="form-control" id="name" name="name" formControlName="name" 
+                [ngClass]="{
+                    'has-success': updateFunkoForm.controls.name.valid && (updateFunkoForm.controls.name.dirty || updateFunkoForm.controls.name.touched),
+                    'has-danger': updateFunkoForm.controls.name.invalid && (updateFunkoForm.controls.name.dirty || updateFunkoForm.controls.name.touched)
+                }"/>
+                <div class="form-control-feedback">
+                    <p *ngIf="updateFunkoForm.controls.name.invalid && (updateFunkoForm.controls.name.dirty || updateFunkoForm.controls.name.touched)">Name is required and needs at least 4 characters.</p>
+                </div>
             </div>
             <div class="form-group">
                 <label for="number">Number</label>
-                <input type="number" class="form-control" id="number" required [(ngModel)]="currentFunko.number" name="number" />
+                <input type="number" class="form-control" id="number" formControlName="number" name="number" 
+                [ngClass]="{
+                    'has-success': updateFunkoForm.controls.number.valid && (updateFunkoForm.controls.number.dirty || updateFunkoForm.controls.number.touched),
+                    'has-danger': updateFunkoForm.controls.number.invalid && (updateFunkoForm.controls.number.dirty || updateFunkoForm.controls.number.touched)
+                }"/>
+            <div class="form-control-feedback">
+                <p
+                    *ngIf="updateFunkoForm.controls.number.invalid && (updateFunkoForm.controls.number.dirty || updateFunkoForm.controls.number.touched)">
+                    Number needs to be higher then zero.</p>
+            </div>
             </div>
             <div class="form-group">
                 <label for="serie">Serie *</label>
-                <select class="series" required [(ngModel)]="currentFunko.serieId" name="status">
+                <select class="series" formControlName="serie" name="status"
+                [ngClass]="{
+                    'has-success': updateFunkoForm.controls.serie.valid && (updateFunkoForm.controls.serie.dirty || updateFunkoForm.controls.serie.touched),
+                    'has-danger': updateFunkoForm.controls.serie.invalid && (updateFunkoForm.controls.serie.dirty || updateFunkoForm.controls.serie.touched)
+                }">
                     <option *ngFor="let serie of series;" [ngValue]="serie.id">{{ serie.name }}</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text" class="form-control" id="description" [(ngModel)]="currentFunko.description"
-                    name="description" />
+                <input type="text" class="form-control" id="description" formControlName="description" name="description" />
             </div>
         </form>
         <button class="btn btn-danger mr-2" (click)="deleteFunko()">
             Delete
         </button>
 
-        <button type="submit" class="btn btn-success mr-2" (click)="updateFunko()">
+        <button type="submit" class="btn btn-success mr-2" [disabled]="!updateFunkoForm.valid" (click)="updateFunko()">
             Update
         </button>
         <p>{{ message }}</p>

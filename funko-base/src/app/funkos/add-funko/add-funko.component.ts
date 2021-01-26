@@ -16,23 +16,29 @@ export class AddFunkoComponent implements OnInit {
     funko: Funko = {
         name: '',
         number: 0,
+        serieId: 0,
         description: ''
     };
     series: Serie[] = [];
 
-    //Init form
-    public name: any;
-    public number: any;
-    public serie: any;
-    public description: any;
+    // Init form
+    addFunkoForm!: FormGroup;
 
-    constructor(private funkoService: FunkoService, private serieService: SerieService, private authService: AuthService, private router: Router) { }
+    constructor(private formBuilder: FormBuilder, private funkoService: FunkoService, private serieService: SerieService, private authService: AuthService, private router: Router) { }
 
-    ngOnInit(): void {
+    ngOnInit(): void {       
         if (!this.authService.isAuthenticated()) {
             const navigationExtras: NavigationExtras = { state: { errorMessage: "Unauthorized. Sign in first." } };
             this.router.navigate(['/'], navigationExtras);
         }
+
+        this.addFunkoForm = this.formBuilder.group({
+            name: [null, [Validators.required, Validators.minLength(4)]],
+            number: [null, [Validators.required, Validators.min(1)]],
+            serie: [null, [Validators.required]],      
+            description: [null],      
+        });
+
         this.getSeries();
     }
 
@@ -48,11 +54,13 @@ export class AddFunkoComponent implements OnInit {
 
     saveFunko(): void {
         const data = {
-            name: this.funko.name,
-            number: this.funko.number,
-            serieId: this.serie.id,
-            description: this.funko.description
+            name: this.addFunkoForm.get('name')!.value,
+            number: this.addFunkoForm.get('number')!.value,
+            serieId: this.addFunkoForm.get('serie')!.value.id,
+            description: this.addFunkoForm.get('description')!.value
         };
+
+        console.log(data);
 
         this.funkoService.create(data)
             .subscribe(
@@ -71,7 +79,7 @@ export class AddFunkoComponent implements OnInit {
         this.funko = {
             name: '',
             number: 0,
-            serieId: '',
+            serieId: 0,
             description: ''
         };
     }

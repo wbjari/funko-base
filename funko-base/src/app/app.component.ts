@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { User } from './models/user.model';
 import { Router, Params, NavigationExtras } from '@angular/router';
+import { SharedService } from './shared/shared.service'
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,13 @@ export class AppComponent implements OnInit {
   title = 'funko-base';
 
   user: User | undefined;
-  loggedIn: boolean = false;
+  loggedIn: boolean | undefined;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private sharedService: SharedService) { 
+    this.sharedService.loggedIn.subscribe(value => {
+      this.loggedIn = value;
+    });
+  }
 
   ngOnInit() {
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
 
 import { FunkoService } from 'src/app/services/funko.service';
 import { SerieService } from 'src/app/services/serie.service';
@@ -16,13 +16,17 @@ export class FunkoDetailsComponent implements OnInit {
     currentFunko: Funko = {
         name: '',
         number: 0,
-        serieId: '',
+        serieId: 0,
         description: ''
     };
     message = '';
     series: any;
 
+    // Init form
+    updateFunkoForm!: FormGroup;
+
     constructor(
+        private formBuilder: FormBuilder, 
         private funkoService: FunkoService,
         private serieService: SerieService,
         private authService: AuthService,
@@ -34,6 +38,13 @@ export class FunkoDetailsComponent implements OnInit {
         this.series = '';
         this.getFunko(this.route.snapshot.params.id);
         this.getSeries();
+
+        this.updateFunkoForm = this.formBuilder.group({
+            name: [null, [Validators.required, Validators.minLength(4)]],
+            number: [null, [Validators.required, Validators.min(1)]],
+            serie: [null, [Validators.required]],
+            description: [null],
+        });
     }
 
     getFunko(id: string): void {
@@ -41,7 +52,10 @@ export class FunkoDetailsComponent implements OnInit {
             .subscribe(
                 data => {
                     this.currentFunko = data;
-                    console.log(this.currentFunko);
+                    this.updateFunkoForm.controls['name'].setValue(this.currentFunko.name);
+                    this.updateFunkoForm.controls['number'].setValue(this.currentFunko.number);
+                    this.updateFunkoForm.controls['serie'].setValue(this.currentFunko.serieId);
+                    this.updateFunkoForm.controls['description'].setValue(this.currentFunko.description);
                     if (this.currentFunko.userId != this.authService.getUserId()) {
                         const navigationExtras: NavigationExtras = { state: { errorMessage: "This funko isn't yours!" } };
                         this.router.navigate(['/'], navigationExtras);
@@ -65,7 +79,11 @@ export class FunkoDetailsComponent implements OnInit {
     }
 
     updateFunko(): void {
-        console.log(this.currentFunko);
+        this.currentFunko.name = this.updateFunkoForm.get('name')?.value;
+        this.currentFunko.number = this.updateFunkoForm.get('number')?.value;
+        this.currentFunko.serieId = this.updateFunkoForm.get('serie')?.value;
+        this.currentFunko.description = this.updateFunkoForm.get('description')?.value;
+
         this.funkoService.update(this.currentFunko.id, this.currentFunko)
             .subscribe(
                 response => {

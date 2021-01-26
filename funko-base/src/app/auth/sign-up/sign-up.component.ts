@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, Params, NavigationExtras } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,19 +15,27 @@ export class SignUpComponent implements OnInit {
         password: ''
     };
 
-    constructor(private authService: AuthService, private router: Router) { }
+    //Init form
+    signUpForm!: FormGroup;
+
+    constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
     ngOnInit(): void {
         if(this.authService.isAuthenticated()) {
             const navigationExtras: NavigationExtras = { state: { errorMessage: "You are already signed in. Sign out first before you try to create a new account." } };
             this.router.navigate(['/'], navigationExtras);
         }
+
+        this.signUpForm = this.formBuilder.group({
+            username: [null, Validators.required],
+            password: [null, [Validators.required]],
+        });
     }
 
     signUp(): void {
         const data = {
-            username: this.user.username,
-            password: this.user.password
+            username: this.signUpForm.get('username')!.value,
+            password: this.signUpForm.get('password')!.value
         };
 
         this.authService.signUp(data)

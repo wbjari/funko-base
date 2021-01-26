@@ -1,13 +1,18 @@
 <h1>Add serie.</h1>
 <div>
-    <div class="form">
+    <form [formGroup]="addSerieForm" novalidate>
         <div class="form-group">
             <label for="name">Serie name</label>
-            <input type="text" class="form-control" id="name" 
-            required 
-            [(ngModel)]="serie.name" name="name"/>
+            <input type="text" class="form-control" id="name" name="name" formControlName="name"
+            [ngClass]="{
+                'has-success': addSerieForm.controls.name.valid && (addSerieForm.controls.name.dirty || addSerieForm.controls.name.touched),
+                'has-danger': addSerieForm.controls.name.invalid && (addSerieForm.controls.name.dirty || addSerieForm.controls.name.touched)
+            }"/>
+            <div class="form-control-feedback">
+                <p *ngIf="addSerieForm.controls.name.invalid && (addSerieForm.controls.name.dirty || addSerieForm.controls.name.touched)">Name is required and needs at least 4 characters.</p>
+            </div>
         </div>
 
-        <button (click)="saveSerie()" class="btn btn-success">Submit</button>
-    </div>
+        <button (click)="saveSerie()" class="btn btn-success" [disabled]="!addSerieForm.valid">Submit</button>
+    </form>
 </div>

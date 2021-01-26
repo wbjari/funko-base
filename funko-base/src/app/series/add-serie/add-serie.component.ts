@@ -16,20 +16,24 @@ export class AddSerieComponent implements OnInit {
     };
 
     //Init form
-    public name: any;
+    addSerieForm!: FormGroup;
 
-    constructor(private serieService: SerieService, private authService: AuthService, private router: Router) { }
+    constructor(private formBuilder: FormBuilder, private serieService: SerieService, private authService: AuthService, private router: Router) { }
 
     ngOnInit(): void {
         if (!this.authService.isAuthenticated()) {
             const navigationExtras: NavigationExtras = { state: { errorMessage: "Unauthorized. Sign in first." } };
             this.router.navigate(['/'], navigationExtras);
         }
+
+        this.addSerieForm = this.formBuilder.group({
+            name: [null, [Validators.required, Validators.minLength(4)]]
+        });
     }
 
     saveSerie(): void {
         const data = {
-            name: this.serie.name
+            name: this.addSerieForm.get('name')!.value
         };
 
         this.serieService.create(data)
