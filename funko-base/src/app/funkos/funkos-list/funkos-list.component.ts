@@ -110,8 +110,6 @@ export class FunkosListComponent implements OnInit {
             for (var i = 0; i < currentFunkoLikes.length; i++) {
                 if (currentFunkoLikes[i].userId == this.authService.getUserId()) {
                     this.canLike = false;
-                } else {
-                    this.canLike = true;
                 }
             }
         } else {

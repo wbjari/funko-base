@@ -5,7 +5,9 @@
     "ng": "ng",
     "start": "node server.js",
     "build": "ng build",
+    "build:gitlab": "ng build — prod — base-href /angular-gitlab-ci/",
     "test": "ng test",
+    "test:chromeHeadless": "npm run test — — browsers ChromeHeadless — single-run",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "heroku-postbuild": "ng build --prod"

@@ -15,6 +15,8 @@ export class SignUpComponent implements OnInit {
         password: ''
     };
 
+    errorMessage: string = '';
+
     //Init form
     signUpForm!: FormGroup;
 
@@ -27,8 +29,8 @@ export class SignUpComponent implements OnInit {
         }
 
         this.signUpForm = this.formBuilder.group({
-            username: [null, Validators.required],
-            password: [null, [Validators.required]],
+            username: [null, [Validators.required, Validators.minLength(4)]],
+            password: [null, [Validators.required, Validators.minLength(8)]],
         });
     }
 
@@ -45,7 +47,7 @@ export class SignUpComponent implements OnInit {
                     this.router.navigate(['/'], navigationExtras);
                 },
                 error => {
-                    console.log(error);
+                    this.errorMessage = error.error.message;
                 });
     }
 

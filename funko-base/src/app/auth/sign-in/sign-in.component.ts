@@ -16,6 +16,8 @@ export class SignInComponent implements OnInit {
         password: ''
     };
 
+    errorMessage: string = '';
+
     //Init form
     signInForm!: FormGroup;
 
@@ -29,7 +31,7 @@ export class SignInComponent implements OnInit {
 
         this.signInForm = this.formBuilder.group({
             username: [null, Validators.required],
-            password: [null, [Validators.required]],
+            password: [null, Validators.required],
         });
     }
 
@@ -46,8 +48,8 @@ export class SignInComponent implements OnInit {
                     this.sharedService.loggedIn.next(true);
                     this.router.navigate(['/'], navigationExtras);
                 },
-                error => {
-                    console.log(error);
+                error => {;
+                    this.errorMessage = error.error.message;
                 });
     }
 

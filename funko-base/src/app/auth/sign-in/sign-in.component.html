@@ -1,4 +1,7 @@
 <h1>Sign-in.</h1>
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+</div>
 <div>
     <form [formGroup]="signInForm" novalidate>
         <div class="form-group">
